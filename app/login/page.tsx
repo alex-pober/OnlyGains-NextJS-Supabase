@@ -1,7 +1,21 @@
+'use client'
 import Link from 'next/link'
 import Messages from './messages'
+import { createRouteHandlerClient, createClientComponentClient } from '@supabase/auth-helpers-nextjs'
+import { cookies } from 'next/headers'
 
 export default function Login() {
+  const supabase = createClientComponentClient()
+
+  const handleGoogleSignIn = async () => {
+    await supabase.auth.signInWithOAuth({
+      provider: 'google',
+      options: {
+        redirectTo: `${location.origin}/auth/callback`
+      }
+    })
+  }
+
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
       <Link
@@ -54,9 +68,16 @@ export default function Login() {
         </button>
         <button
           formAction="/auth/sign-up"
-          className="border border-gray-700 rounded px-4 py-2 text-black mb-2"
+          className="border border-gray-700 rounded px-4 py-2 text-white mb-2"
         >
           Sign Up
+        </button>
+        <button
+          formNoValidate
+          className="border border-gray-700 rounded px-4 py-2 text-white mb-2"
+          onClick={handleGoogleSignIn}
+        >
+          Continue with Google
         </button>
         <Messages />
       </form>
