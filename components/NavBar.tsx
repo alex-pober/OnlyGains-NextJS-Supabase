@@ -60,6 +60,11 @@ export default async function NavBar() {
                 </Link>
               </li>
               <li>
+                <Link href="/workouts" className="btn-ghost normal-case text-base">
+                  Workouts
+                </Link>
+              </li>
+              <li>
                 <Link href="/links" className="btn-ghost normal-case text-base">
                   Links
                 </Link>
@@ -79,10 +84,16 @@ export default async function NavBar() {
       {/* Sidedrawer content here */}
       <div className="drawer-side z-50">
         <label htmlFor="my-drawer-3" className="drawer-overlay"></label>
-        <ul className="menu p-4 w-80 h-full bg-base-200">
+        <ul className="menu p-4 w-80 h-full bg-base-200 pt-16">
           <li>
             <Link href="/dashboard" className="btn-ghost normal-case text-lg">
               Dashboard
+            </Link>
+          </li>
+          <div className="divider m-0"></div>
+          <li>
+            <Link href="/workouts" className="btn-ghost normal-case text-lg">
+              Workouts
             </Link>
           </li>
           <div className="divider m-0"></div>
