@@ -14,6 +14,6 @@ export default async function Workouts() {
     <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold w-5/6 mt-4 mb-4">
       Workouts
     </h2>
-    <CreateWorkoutModal session={session}/>
+    <CreateWorkoutModal workoutCount={workout?.length} session={session}/>
   </>)
 }

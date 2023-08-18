@@ -1,9 +1,8 @@
 "use client";
 import { useState, useCallback } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
-import { useEditor, EditorContent } from '@tiptap/react'
 
-export default function CreateWorkoutModal({session}: any) {
+export default function CreateWorkoutModal({session, workoutCount}: any) {
   const supabase = createClientComponentClient()
   const [title, setTitle] = useState<string>("")
   const [notes, setNotes] = useState<string>("")
@@ -16,7 +15,8 @@ export default function CreateWorkoutModal({session}: any) {
       let { error } = await supabase.from('workout').insert({
         auth_id: session.user.id,
         title: title,
-        notes: notes
+        notes: notes,
+        order: workoutCount + 1
       })
       if (error) throw error
       alert('Profile updated!')
@@ -24,6 +24,8 @@ export default function CreateWorkoutModal({session}: any) {
       console.log(error)
       alert('Error updating the data!')
     } finally {
+      setTitle("")
+      setNotes("")
       setLoading(false)
     }
   }
@@ -31,26 +33,6 @@ export default function CreateWorkoutModal({session}: any) {
 
   return (
     <>
-      <button
-        className="btn btn-neutral"
-        onClick={() => window.my_modal_3.showModal()}
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke-width="1.5"
-          stroke="currentColor"
-          className="w-6 h-6"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
-          />
-        </svg>
-        New Workout
-      </button>
 
       {/* Open the modal using ID.showModal() method */}
       <dialog id="my_modal_3" className="modal">
@@ -78,6 +60,26 @@ export default function CreateWorkoutModal({session}: any) {
           </div>
         </form>
       </dialog>
+      <button
+        className="btn btn-neutral"
+        onClick={() => window.my_modal_3.showModal()}
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke-width="1.5"
+          stroke="currentColor"
+          className="w-6 h-6"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10"
+          />
+        </svg>
+        New Workout
+      </button>
     </>
   );
 }
