@@ -33,7 +33,6 @@ export default function CreateWorkoutModal({session, workoutCount}: any) {
 
   return (
     <>
-
       {/* Open the modal using ID.showModal() method */}
       <dialog id="my_modal_3" className="modal" ref={myModal}>
         <form method="dialog" className="modal-box">
