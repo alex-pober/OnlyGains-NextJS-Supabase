@@ -16,7 +16,6 @@ export default function SetUpForm({session}: any) {
       setLoading(true)
 
       let { error } = await supabase.from('user').insert({
-        auth_id: session.user.id,
         user_name: username,
         display_name: displayName,
         bio: bio

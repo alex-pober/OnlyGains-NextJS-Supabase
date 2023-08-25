@@ -15,27 +15,28 @@ export default function CreateWorkoutDayModal(){
   const [description, setDescription] = useState<string>("")
   const [loading, setLoading] = useState(false)
 
-  async function createWorkoutDay({ title, description}: WorkoutDay) {
-    try {
-      setLoading(true)
+  // async function createWorkoutDay({ title, description}: WorkoutDay) {
+  //   try {
+  //     setLoading(true)
 
-      let { error } = await supabase.from('workout_day').insert({
-        auth_id: session.user.id,
-        title: title,
-        description: description,
-        order: workoutCount + 1
-      })
-      if (error) throw error
-      alert('Profile updated!')
-    } catch (error) {
-      console.log(error)
-      alert('Error updating the data!')
-    } finally {
-      setTitle("")
-      setDescription("")
-      setLoading(false)
-    }
-  }
+  //     let { error } = await supabase.from('workout_day').insert({
+  //       auth_id: session.user.id,
+  //       title: title,
+  //       description: description,
+  //       order: workoutCount + 1
+  //     })
+  //     if (error) throw error
+  //     alert('Profile updated!')
+  //   } catch (error) {
+  //     console.log(error)
+  //     alert('Error updating the data!')
+  //   } finally {
+  //     setTitle("")
+  //     setDescription("")
+  //     setLoading(false)
+  //   }
+  // }
+
   return (
     <>
     {/* Open the modal using ID.showModal() method */}
@@ -59,7 +60,7 @@ export default function CreateWorkoutDayModal(){
         <div className="flex justify-end">
           <button
             className="btn btn-primary btn-sm"
-            onClick={() => createWorkoutDay({title, description})}
+            // onClick={() => createWorkoutDay({title, description})}
           >Create</button>
         </div>
       </form>

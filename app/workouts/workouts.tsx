@@ -11,7 +11,7 @@ type Workout = {
 };
 
 export default function Workouts({workoutsData }: {workoutsData: any}) {
-  const [activeTab, setActiveTab] = useState<number>(workoutsData[0].id);
+  const [activeTab, setActiveTab] = useState<number>(workoutsData[0]?.id || null);
   return (
     <>
       <div className="tabs tabs-boxed">
@@ -27,7 +27,7 @@ export default function Workouts({workoutsData }: {workoutsData: any}) {
           );
         })}
       </div>
-      <WorkoutDay />
+      {workoutsData ?? <WorkoutDay />}
     </>
   );
 }
