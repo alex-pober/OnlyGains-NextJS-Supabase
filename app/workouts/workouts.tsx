@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import WorkoutDay from "./workout-day";
+import NoWorkouts from "./no-workouts";
 type Workout = {
   auth_id: string | null;
   created_at: string;
@@ -12,6 +13,7 @@ type Workout = {
 
 export default function Workouts({workoutsData }: {workoutsData: any}) {
   const [activeTab, setActiveTab] = useState<number>(workoutsData[0]?.id || null);
+  console.log(workoutsData)
   return (
     <>
       <div className="tabs tabs-boxed">
@@ -27,7 +29,7 @@ export default function Workouts({workoutsData }: {workoutsData: any}) {
           );
         })}
       </div>
-      {workoutsData ?? <WorkoutDay />}
+      {workoutsData.length>0 ? <WorkoutDay workoutId={activeTab}/> : <NoWorkouts />}
     </>
   );
 }
