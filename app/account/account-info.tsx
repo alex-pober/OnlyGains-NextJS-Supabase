@@ -9,6 +9,7 @@ export default function AccountInfo({ user, sessionUserId }: any) {
   const [bio, setBio] = useState<string>(user.bio)
 
   const [loading, setLoading] = useState<boolean>(false)
+  // this async needs to be inside useEffect for client compoenents
   async function updateUser({ username, displayName, bio }: {username: string, displayName: string, bio: string}) {
     try {
       setLoading(true)

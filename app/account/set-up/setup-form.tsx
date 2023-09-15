@@ -10,7 +10,7 @@ export default function SetUpForm({session}: any) {
   const [displayName, setDisplayName] = useState<string>("")
   const [bio, setBio] = useState<string>("")
   const [loading, setLoading] = useState<boolean>(false)
-
+  // this async need to be inside useEffect for client components
   async function updateUser({ username, displayName, bio }: {username: string, displayName: string, bio: string}) {
     try {
       setLoading(true)

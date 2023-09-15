@@ -8,6 +8,7 @@ export default function CreateWorkoutModal({session, workoutCount}: any) {
   const [title, setTitle] = useState<string>("")
   const [notes, setNotes] = useState<string>("")
   const [loading, setLoading] = useState(false)
+  // this async need to be moved inside useEffect for client compoenents
   async function createWorkout({ title, notes }: {title: string, notes: string}) {
     try {
       setLoading(true)
