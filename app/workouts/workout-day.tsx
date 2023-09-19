@@ -47,9 +47,11 @@ export default function WorkoutDay({ workoutId }: any) {
         return (
           <div key={day.id} className="collapse collapse-arrow bg-base-200">
             <input type="radio" name="my-accordion-3" />
-            <div className="collapse-title text-xl font-medium">
+            <div className="collapse-title text-xl font-medium flex gap-5">
               {day.title}
-              {day.description}
+              <div className="text-l font-light text-gray-400">
+                {day.description}
+              </div>
             </div>
             <div className="collapse-content">
               <p>hello</p>
