@@ -7,16 +7,15 @@ import NoWorkoutDays from "./no-workout-days";
 export default function WorkoutDay({ workoutId }: any) {
   const [workoutDays, setWorkoutDays] = useState<any[]>([]);
   const supabase = createClientComponentClient();
-
+  
   useEffect(() => {
     const getWorkoutDays = async () => {
       const { data }: {data: any} = await supabase
-        .from("workout_day")
-        .select()
-        .eq("workout_id", workoutId);
+      .from("workout_day")
+      .select()
+      .eq("workout_id", workoutId);
 
-      if (data.length > 0) {
-        console.log(data);
+      if (data.length >= 0) {
         setWorkoutDays(data);
       }
     };
