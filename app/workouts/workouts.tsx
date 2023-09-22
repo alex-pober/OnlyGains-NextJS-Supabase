@@ -12,7 +12,7 @@ type Workout = {
   title: string;
 };
 
-export default function Workouts({ workoutsData, workoutCount, session }: { workoutsData: any }) {
+export default function Workouts({ workoutsData, workoutCount, session }: { workoutsData: any, workoutCount: any, session: any }) {
   const [activeTab, setActiveTab] = useState<number>(
     workoutsData[0]?.id || null
   );
