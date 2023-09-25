@@ -4,16 +4,17 @@ import { cookies } from "next/headers";
 import CreateWorkoutDayModal from "./create-workoutDay-modal";
 import { useEffect, useState } from "react";
 import NoWorkoutDays from "./no-workout-days";
+import CreateWorkoutExercise from "./create-workoutExercise";
 export default function WorkoutDay({ workoutId }: any) {
   const [workoutDays, setWorkoutDays] = useState<any[]>([]);
   const supabase = createClientComponentClient();
-  
+
   useEffect(() => {
     const getWorkoutDays = async () => {
-      const { data }: {data: any} = await supabase
-      .from("workout_day")
-      .select()
-      .eq("workout_id", workoutId);
+      const { data }: { data: any } = await supabase
+        .from("workout_day")
+        .select()
+        .eq("workout_id", workoutId);
 
       if (data.length >= 0) {
         setWorkoutDays(data);
@@ -30,7 +31,10 @@ export default function WorkoutDay({ workoutId }: any) {
         <>
           {workoutDays.map((day) => {
             return (
-              <div key={day.id} className="collapse collapse-arrow bg-base-200 mb-1">
+              <div
+                key={day.id}
+                className="collapse collapse-arrow bg-base-200 mb-1"
+              >
                 <input type="radio" name="my-accordion-3" />
                 <div className="collapse-title text-xl font-medium flex gap-5">
                   {day.title}
@@ -39,7 +43,23 @@ export default function WorkoutDay({ workoutId }: any) {
                   </div>
                 </div>
                 <div className="collapse-content">
-                  <p>hello</p>
+                  <table className="table table-xs">
+                    <tbody>
+                      <tr>
+                        <td>Cy Ganderton</td>
+                        <td>Quality Control Specialist</td>
+                      </tr>
+                      <tr>
+                        <td>Hart Hagerty</td>
+                        <td>Desktop Support Technician</td>
+                      </tr>
+                      <tr>
+                        <td>Brice Swyre</td>
+                        <td>Tax Accountant</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <CreateWorkoutExercise />
                 </div>
               </div>
             );
