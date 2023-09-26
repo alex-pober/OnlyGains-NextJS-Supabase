@@ -1,3 +1,4 @@
+'use client'
 import { useState, useCallback, useRef } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import WorkoutDay from "./workout-day";

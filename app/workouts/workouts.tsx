@@ -16,7 +16,7 @@ export default function Workouts({ workoutsData, workoutCount, session }: { work
   const [activeTab, setActiveTab] = useState<number>(
     workoutsData[0]?.id || null
   );
-  console.log(workoutsData);
+
   return (
     <>
       <div className="tabs tabs-boxed mb-4">

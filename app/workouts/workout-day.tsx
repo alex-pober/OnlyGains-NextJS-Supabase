@@ -59,7 +59,7 @@ export default function WorkoutDay({ workoutId }: any) {
                       </tr>
                     </tbody>
                   </table>
-                  <CreateWorkoutExercise />
+                  <CreateWorkoutExercise workoutDayId={day.id}/>
                 </div>
               </div>
             );
