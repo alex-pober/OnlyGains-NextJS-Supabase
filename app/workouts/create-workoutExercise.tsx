@@ -44,6 +44,7 @@ export default function CreateWorkoutExercise({workoutDayId}: any) {
               className="input input-sm input-bordered w-full max-w-xs"
               value={exercise}
               onChange={(e) => setExercise(e.target.value)}
+              required
             />
             <input
               type="text"

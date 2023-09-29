@@ -5,6 +5,14 @@ import CreateWorkoutDayModal from "./create-workoutDay-modal";
 import { useEffect, useState } from "react";
 import NoWorkoutDays from "./no-workout-days";
 import CreateWorkoutExercise from "./create-workoutExercise";
+
+type Exercise = {
+  id: number;
+  exercise: string;
+  reps: string;
+  workout_day_id: number;
+};
+
 export default function WorkoutDay({ workoutId }: any) {
   const [workoutDays, setWorkoutDays] = useState<any[]>([]);
   const supabase = createClientComponentClient();
@@ -13,7 +21,7 @@ export default function WorkoutDay({ workoutId }: any) {
     const getWorkoutDays = async () => {
       const { data }: { data: any } = await supabase
         .from("workout_day")
-        .select()
+        .select("*, workout_day_exercise(*)")
         .eq("workout_id", workoutId);
 
       if (data.length >= 0) {
@@ -45,21 +53,17 @@ export default function WorkoutDay({ workoutId }: any) {
                 <div className="collapse-content">
                   <table className="table table-xs">
                     <tbody>
-                      <tr>
-                        <td>Cy Ganderton</td>
-                        <td>Quality Control Specialist</td>
-                      </tr>
-                      <tr>
-                        <td>Hart Hagerty</td>
-                        <td>Desktop Support Technician</td>
-                      </tr>
-                      <tr>
-                        <td>Brice Swyre</td>
-                        <td>Tax Accountant</td>
-                      </tr>
+                      {day.workout_day_exercise.map((exercise: Exercise) => {
+                        return (
+                          <tr key={exercise.id}>
+                            <td>{exercise.exercise}</td>
+                            <td>{exercise.reps}</td>
+                          </tr>
+                        );
+                      })}
                     </tbody>
                   </table>
-                  <CreateWorkoutExercise workoutDayId={day.id}/>
+                  <CreateWorkoutExercise workoutDayId={day.id} />
                 </div>
               </div>
             );
