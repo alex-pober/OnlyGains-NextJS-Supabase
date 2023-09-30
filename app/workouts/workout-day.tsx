@@ -55,7 +55,7 @@ export default function WorkoutDay({ workoutId }: any) {
                     <tbody>
                       {day.workout_day_exercise.map((exercise: Exercise) => {
                         return (
-                          <tr key={exercise.id}>
+                          <tr className="flex justify-between" key={exercise.id}>
                             <td>{exercise.exercise}</td>
                             <td>{exercise.reps}</td>
                           </tr>

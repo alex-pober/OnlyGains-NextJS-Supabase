@@ -31,7 +31,6 @@ export default function AccountInfo({ user, sessionUserId }: any) {
     }
   }
 
-  console.log(user)
   return (
     <div className="form-control w-5/6 max-w-lg flex flex-col mt-4">
       <label className="label">

@@ -62,6 +62,7 @@ export default function CreateWorkoutExercise({workoutDayId}: any) {
             <button
               className="btn btn-sm btn-accent"
               onClick={() => createDayExercise({exercise, reps})}
+              disabled={exercise.length > 1 ? false : true}
             >Add</button>
           </div>
         </>

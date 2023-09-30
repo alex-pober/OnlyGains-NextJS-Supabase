@@ -1,4 +1,5 @@
 'use client'
+import { useEffect, useState } from 'react'
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
@@ -6,19 +7,28 @@ import LogoutButton from "../components/LogoutButton";
 import { usePathname } from "next/navigation";
 
 
-export default async function NavBar() {
+export default function NavBar() {
   const supabase = createClientComponentClient();
   const router = usePathname()
-
-  const {
-    data: { user },
-  } = await supabase.auth.getUser();
 
   // Check the current route
   if (router === "/account/set-up") {
     // Do not render the component
     return null;
   }
+
+  //pretty sure this isnt needed.
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+    }
+
+    getUser()
+  }, [])
+
+
 
   return (
     <div className="drawer drawer-end">
