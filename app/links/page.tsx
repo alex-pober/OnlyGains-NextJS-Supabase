@@ -1,5 +1,6 @@
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
+import Link from "./link"
 
 export default async function Links(){
   const supabase = createServerComponentClient({cookies})
@@ -12,6 +13,7 @@ export default async function Links(){
       </h2>
 
       <button className="btn btn-primary">Add New Link</button>
+      <Link title="OnlyGains" url="www.onlygains.com"/>
     </>
   )
 }
