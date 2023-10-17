@@ -14,7 +14,7 @@ export default async function Links(){
       </h2>
 
       <CreateLink />
-      <Link title="OnlyGains" url="www.onlygains.com"/>
+      {/* <Link title="OnlyGains" url="www.onlygains.com"/> */}
     </>
   )
 }
