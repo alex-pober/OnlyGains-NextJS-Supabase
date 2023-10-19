@@ -13,23 +13,29 @@ export default function CreateLink() {
   const setLink = async () => {
     try {
       setLoading(true);
-      let {data: user} = await supabase
+      const { data: user, error } = await supabase
         .from("user")
         .select('id')
         .eq("auth_id", authId)
-        .single()
-        .then(({error,data}) => {
-          if (data) {
-            supabase.from("links").insert({
-              title: title,
-              url: url,
-              user_id: user.id
-            })
-          }
+        .single();
 
-          if (error) throw error;
-        })
+      if (error) {
+        throw error;
+      }
 
+      if (user) {
+        const { error: linkError } = await supabase.from("links").upsert([
+          {
+            title: title,
+            url: url,
+            user_id: user.id,
+          },
+        ]);
+
+        if (linkError) {
+          throw linkError;
+        }
+      }
     } catch (error) {
       console.log(error);
       alert("error from creating link");
