@@ -3,31 +3,50 @@ import { useState, useCallback, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function CreateLink() {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState<boolean>(false);
+  const [authId, setAuthId] = useState<string>("")
   const [title, setTitle] = useState<string>("");
-  const [url, setUrl] = useState<string>("");
+  const [url, setURL] = useState<string>("");
   const [editing, setEditing] = useState<boolean>(false);
   const supabase = createClientComponentClient();
+  console.log(authId)
+  const setLink = async () => {
+    try {
+      setLoading(true);
+      let {data: user} = await supabase
+        .from("user")
+        .select('id')
+        .eq("auth_id", authId)
+        .single()
+        .then(({error,data}) => {
+          if (data) {
+            supabase.from("links").insert({
+              title: title,
+              url: url,
+              user_id: user.id
+            })
+          }
+
+          if (error) throw error;
+        })
+
+    } catch (error) {
+      console.log(error);
+      alert("error from creating link");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   useEffect(() => {
-    const setLink = async () => {
-      try {
-        setLoading(true);
-        const { data: user } = await supabase.auth.getUser();
-        console.log("useEffect user >>> ", user);
-        let { error } = await supabase.from("links").insert({
-          title: title,
-          url: url,
-        });
-
-        if (error) throw error;
-      } catch (error) {
-        console.log(error);
-        alert("error from creating link");
-      } finally {
-        setLoading(false);
+    const getUserAuth = async () => {
+      const { data: userAuth } = await supabase.auth.getUser()
+      if (userAuth) {
+        setAuthId(userAuth.user!.id)
       }
-    };
+    }
+
+    getUserAuth()
   }, []);
 
   return (
@@ -43,17 +62,29 @@ export default function CreateLink() {
                 <input
                   type="text"
                   placeholder="Title"
+                  value={title}
+                  onChange={(e) => setTitle(e.target.value)}
                   className="input input-sm input-bordered w-full max-w-xs"
                 />
                 <input
                   type="text"
                   placeholder="URL"
+                  value={url}
+                  onChange={(e) => setURL(e.target.value)}
                   className="input input-sm input-bordered w-full max-w-xs"
                 />
               </div>
               <div className="card-actions w-20 flex-col space-y-1 items-center">
-                <button className="btn btn-sm btn-primary w-full">Add</button>
-                <button className="btn btn-sm btn-ghost">Cancel</button>
+                <button className="btn btn-sm btn-primary w-full"
+                  onClick={() => setLink()}
+                >Add</button>
+                <button className="btn btn-sm btn-ghost"
+                  onClick={() => {
+                    setEditing(false)
+                    setTitle("")
+                    setURL("")
+                  }}
+                >Cancel</button>
               </div>
             </div>
           </div>
