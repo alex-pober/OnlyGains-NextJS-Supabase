@@ -6,6 +6,10 @@ import CreateLink from "./create-link"
 export default async function Links(){
   const supabase = createServerComponentClient({cookies})
   const {data: { session }} = await supabase.auth.getSession()
+  const {data: links} = await supabase
+    .from("links")
+    .select()
+    .eq('auth_id', session?.user.id)
 
   return (
     <>
@@ -14,7 +18,13 @@ export default async function Links(){
       </h2>
 
       <CreateLink />
-      {/* <Link title="OnlyGains" url="www.onlygains.com"/> */}
+      {links?.map((link) => {
+        return (
+          <>
+            <Link title={link.title} url={link.url}/>
+          </>
+        )
+      })}
     </>
   )
 }

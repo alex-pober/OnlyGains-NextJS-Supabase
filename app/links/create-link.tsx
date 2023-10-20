@@ -4,18 +4,19 @@ import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 
 export default function CreateLink() {
   const [loading, setLoading] = useState<boolean>(false);
-  const [authId, setAuthId] = useState<string>("")
+  const [authId, setAuthId] = useState<string>("");
   const [title, setTitle] = useState<string>("");
   const [url, setURL] = useState<string>("");
   const [editing, setEditing] = useState<boolean>(false);
   const supabase = createClientComponentClient();
-  console.log(authId)
+
   const setLink = async () => {
     try {
       setLoading(true);
+      //1st we match the auth id with logged in user and get users' ID from supabase
       const { data: user, error } = await supabase
         .from("user")
-        .select('id')
+        .select("id")
         .eq("auth_id", authId)
         .single();
 
@@ -23,6 +24,7 @@ export default function CreateLink() {
         throw error;
       }
 
+      //2nd when userID is found, we INSERT the link
       if (user) {
         const { error: linkError } = await supabase.from("links").upsert([
           {
@@ -40,20 +42,28 @@ export default function CreateLink() {
       console.log(error);
       alert("error from creating link");
     } finally {
+      setTitle("");
+      setURL("");
+      setEditing(false);
       setLoading(false);
     }
   };
 
   useEffect(() => {
     const getUserAuth = async () => {
-      const { data: userAuth } = await supabase.auth.getUser()
+      const { data: userAuth } = await supabase.auth.getUser();
       if (userAuth) {
-        setAuthId(userAuth.user!.id)
+        setAuthId(userAuth.user!.id);
       }
-    }
+    };
 
-    getUserAuth()
+    getUserAuth();
   }, []);
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    setLink()
+  }
 
   return (
     <>
@@ -63,36 +73,48 @@ export default function CreateLink() {
             <h2 className="text-xl md:text-3xl lg:text-4xl font-extrabold w-5/6 mb-2">
               New Link
             </h2>
-            <div className="card-inputs-and-actions flex mb-1 gap-2">
-              <div className="card-inputs flex flex-col gap-3 w-full">
-                <input
-                  type="text"
-                  placeholder="Title"
-                  value={title}
-                  onChange={(e) => setTitle(e.target.value)}
-                  className="input input-sm input-bordered w-full max-w-xs"
-                />
-                <input
-                  type="text"
-                  placeholder="URL"
-                  value={url}
-                  onChange={(e) => setURL(e.target.value)}
-                  className="input input-sm input-bordered w-full max-w-xs"
-                />
+            <form onSubmit={handleSubmit}>
+              <div className="card-inputs-and-actions flex mb-1 gap-2">
+                <div className="card-inputs flex flex-col gap-3 w-full">
+                  <input
+                    type="text"
+                    placeholder="Title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    className="input input-sm input-bordered w-full max-w-xs"
+                    required
+                  />
+                  <input
+                    type="url"
+                    placeholder="https://example.com" 
+                    pattern="https://.*"
+                    value={url}
+                    onChange={(e) => setURL(e.target.value)}
+                    className="input input-sm input-bordered w-full max-w-xs"
+                    required
+                  />
+                </div>
+
+                <div className="card-actions w-20 flex-col space-y-1 items-center">
+                  <button
+                    className="btn btn-sm btn-primary w-full"
+                    type="submit"
+                  >
+                    Add
+                  </button>
+                  <button
+                    className="btn btn-sm btn-ghost"
+                    onClick={() => {
+                      setEditing(false);
+                      setTitle("");
+                      setURL("");
+                    }}
+                  >
+                    Cancel
+                  </button>
+                </div>
               </div>
-              <div className="card-actions w-20 flex-col space-y-1 items-center">
-                <button className="btn btn-sm btn-primary w-full"
-                  onClick={() => setLink()}
-                >Add</button>
-                <button className="btn btn-sm btn-ghost"
-                  onClick={() => {
-                    setEditing(false)
-                    setTitle("")
-                    setURL("")
-                  }}
-                >Cancel</button>
-              </div>
-            </div>
+            </form>
           </div>
         </div>
       ) : (
