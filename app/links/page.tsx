@@ -18,13 +18,15 @@ export default async function Links(){
       </h2>
 
       <CreateLink />
-      {links?.map((link) => {
-        return (
-          <>
-            <Link title={link.title} url={link.url}/>
-          </>
-        )
-      })}
+      <div className="links flex flex-col gap-2">
+        {links?.map((link) => {
+          return (
+            <>
+              <Link title={link.title} url={link.url}/>
+            </>
+          )
+        })}
+      </div>
     </>
   )
 }

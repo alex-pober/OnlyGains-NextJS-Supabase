@@ -11,7 +11,7 @@ export default async function Link({
     <div className="card w-96 bg-neutral text-neutral-content">
       <div className="card-body py-2 px-4 gap-0">
         <h2 className="card-title">{title}</h2>
-        <p>{url}</p>
+        <p className="text-slate-400">{url}</p>
         <div className="card-actions justify-end">
           <button className="btn-xs btn-square">
             <svg

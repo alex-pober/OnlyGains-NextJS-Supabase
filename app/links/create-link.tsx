@@ -68,7 +68,7 @@ export default function CreateLink() {
   return (
     <>
       {editing ? (
-        <div className="card w-96 bg-neutral text-neutral-content">
+        <div className="card w-96 bg-neutral text-neutral-content mb-2">
           <div className="card-body p-4 gap-1">
             <h2 className="text-xl md:text-3xl lg:text-4xl font-extrabold w-5/6 mb-2">
               New Link
@@ -86,7 +86,7 @@ export default function CreateLink() {
                   />
                   <input
                     type="url"
-                    placeholder="https://example.com" 
+                    placeholder="https://example.com"
                     pattern="https://.*"
                     value={url}
                     onChange={(e) => setURL(e.target.value)}
@@ -118,7 +118,7 @@ export default function CreateLink() {
           </div>
         </div>
       ) : (
-        <button className="btn btn-primary" onClick={() => setEditing(true)}>
+        <button className="btn btn-primary mb-5" onClick={() => setEditing(true)}>
           Add New Link
         </button>
       )}
