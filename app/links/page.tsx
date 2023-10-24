@@ -2,6 +2,7 @@ import { createServerComponentClient } from "@supabase/auth-helpers-nextjs"
 import { cookies } from "next/headers"
 import Link from "./link"
 import CreateLink from "./create-link"
+import DeleteLinkButton from "./delete-link-button"
 
 export default async function Links(){
   const supabase = createServerComponentClient({cookies})
@@ -22,7 +23,9 @@ export default async function Links(){
         {links?.map((link) => {
           return (
             <>
-              <Link title={link.title} url={link.url}/>
+              <Link title={link.title} url={link.url}>
+                <DeleteLinkButton linkId={link.id}/>
+              </Link>
             </>
           )
         })}

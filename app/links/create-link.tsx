@@ -1,6 +1,7 @@
 "use client";
 import { useState, useCallback, useEffect } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+import {useRouter} from "next/navigation"
 
 export default function CreateLink() {
   const [loading, setLoading] = useState<boolean>(false);
@@ -9,6 +10,7 @@ export default function CreateLink() {
   const [url, setURL] = useState<string>("");
   const [editing, setEditing] = useState<boolean>(false);
   const supabase = createClientComponentClient();
+  const router = useRouter()
 
   const setLink = async () => {
     try {
@@ -46,6 +48,7 @@ export default function CreateLink() {
       setURL("");
       setEditing(false);
       setLoading(false);
+      router.refresh()
     }
   };
 
@@ -68,7 +71,7 @@ export default function CreateLink() {
   return (
     <>
       {editing ? (
-        <div className="card w-96 bg-neutral text-neutral-content mb-2">
+        <div className="card w-96 bg-neutral text-neutral-content mb-2 ">
           <div className="card-body p-4 gap-1">
             <h2 className="text-xl md:text-3xl lg:text-4xl font-extrabold w-5/6 mb-2">
               New Link
