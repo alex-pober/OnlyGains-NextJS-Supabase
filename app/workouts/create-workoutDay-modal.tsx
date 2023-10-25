@@ -39,7 +39,7 @@ export default function CreateWorkoutDayModal({workoutId}: any){
   return (
     <>
     {/* Open the modal using ID.showModal() method */}
-    <dialog id="my_modal_3" className="modal" ref={myModal}>
+    <dialog id="create_workoutDay_modal" className="modal" ref={myModal}>
       <form method="dialog" className="modal-box">
         <button className="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
         <h3 className="font-bold text-lg mb-4">Add Day</h3>
