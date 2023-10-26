@@ -4,8 +4,12 @@ import Link from "./link";
 import CreateLink from "./create-link";
 import DeleteLinkButton from "./delete-link-button";
 import EditLinkButton from "./edit-link-button";
+import DropDown from "@/components/DropDown";
+
+
 export default async function Links() {
   const supabase = createServerComponentClient({ cookies });
+
   const {
     data: { session },
   } = await supabase.auth.getSession();
@@ -25,8 +29,8 @@ export default async function Links() {
         {links?.map((link) => {
           return (
             <Link key={link.id} title={link.title} url={link.url}>
-              <div className="dropdown dropdown-left">
-                <label tabIndex={0} className="btn btn-xs m-1">
+              {/* <details id="dropdown" className="dropdown dropdown-left">
+                <summary tabIndex={0} className="btn btn-xs m-1">
                   {" "}
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -42,7 +46,7 @@ export default async function Links() {
                       d="M12 6.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 12.75a.75.75 0 110-1.5.75.75 0 010 1.5zM12 18.75a.75.75 0 110-1.5.75.75 0 010 1.5z"
                     />
                   </svg>
-                </label>
+                </summary>
                 <ul
                   tabIndex={0}
                   className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52"
@@ -56,7 +60,11 @@ export default async function Links() {
                     </a>
                   </li>
                 </ul>
-              </div>
+              </details> */}
+              <DropDown>
+                <EditLinkButton linkId={link.id} linkTitle={link.title} linkUrl={link.url}/>
+                {/* <DeleteLinkButton linkId={link.id} /> */}
+              </DropDown>
             </Link>
           );
         })}

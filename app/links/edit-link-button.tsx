@@ -35,7 +35,8 @@ export default function EditLinkButton({
 
   }
 
-  const openModal = () => {
+  const openModal = (e: any) => {
+    e.stopPropagation()
     myModalLink.current?.showModal();
   };
 
@@ -44,7 +45,6 @@ export default function EditLinkButton({
     updateLink()
   }
   return (
-    <>
       <div onClick={openModal}>
         <dialog id="edit_link_modal" className="modal" ref={myModalLink}>
           <div className="modal-box flex flex-col gap-1 items-center">
@@ -98,6 +98,5 @@ export default function EditLinkButton({
         </svg>
         Edit
       </div>
-    </>
   );
 }

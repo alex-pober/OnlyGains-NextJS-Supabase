@@ -1,7 +1,7 @@
 'use client'
 import {useState, useEffect} from 'react'
 
-export default function({message}: {message: string}){
+export default function ToastSuccess({message}: {message: string}){
   const [isVisible, setIsVisible] = useState<boolean>(false)
 
   useEffect(() => {
