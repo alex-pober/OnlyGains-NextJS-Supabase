@@ -6,6 +6,8 @@ import DeleteLinkButton from "./delete-link-button";
 import EditLinkButton from "./edit-link-button";
 import DropDown from "@/components/DropDown";
 
+import {DropdownMenu, DropdownMenuItem} from "@/components/DropDown2"
+import { DropdownMenuContent, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 
 export default async function Links() {
   const supabase = createServerComponentClient({ cookies });
@@ -61,10 +63,17 @@ export default async function Links() {
                   </li>
                 </ul>
               </details> */}
-              <DropDown>
+              {/* <DropDown>
                 <EditLinkButton linkId={link.id} linkTitle={link.title} linkUrl={link.url}/>
-                {/* <DeleteLinkButton linkId={link.id} /> */}
-              </DropDown>
+                <DeleteLinkButton linkId={link.id} />
+              </DropDown> */}
+              <DropdownMenu>
+                <DropdownMenuTrigger>...</DropdownMenuTrigger>
+
+                <DropdownMenuContent>
+                  <DropdownMenuItem><EditLinkButton linkId={link.id} linkTitle={link.title} linkUrl={link.url}/></DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </Link>
           );
         })}
