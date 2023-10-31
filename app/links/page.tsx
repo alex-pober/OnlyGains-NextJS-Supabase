@@ -1,4 +1,8 @@
+'use client'
 import { createServerComponentClient } from "@supabase/auth-helpers-nextjs";
+import { useEffect, useState } from 'react'
+
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "./link";
 import CreateLink from "./create-link";
@@ -9,16 +13,31 @@ import DropDown from "@/components/DropDown";
 import {DropdownMenu, DropdownMenuItem} from "@/components/DropDown2"
 import { DropdownMenuContent, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 
-export default async function Links() {
-  const supabase = createServerComponentClient({ cookies });
+export default function Links() {
+  // const supabase = createServerComponentClient({ cookies });
+  const supabase = createClientComponentClient();
+  const [links, setLinks] = useState()
+  console.log(links)
+  useEffect(() => {
+    const getLinks = async () => {
+      const {
+        data: { session },
+      } = await supabase.auth.getSession();
 
-  const {
-    data: { session },
-  } = await supabase.auth.getSession();
-  const { data: links } = await supabase
-    .from("links")
-    .select()
-    .eq("auth_id", session?.user.id);
+      if (session) {
+        const { data: links } = await supabase
+        .from("links")
+        .select()
+        .eq("auth_id", session?.user.id);
+
+        setLinks(links)
+      }
+    }
+
+    getLinks()
+  }, [supabase])
+
+
 
   return (
     <>
@@ -30,6 +49,8 @@ export default async function Links() {
       <div className="links flex flex-col gap-2">
         {links?.map((link) => {
           return (
+            <>
+
             <Link key={link.id} title={link.title} url={link.url}>
               {/* <details id="dropdown" className="dropdown dropdown-left">
                 <summary tabIndex={0} className="btn btn-xs m-1">
@@ -67,6 +88,7 @@ export default async function Links() {
                 <EditLinkButton linkId={link.id} linkTitle={link.title} linkUrl={link.url}/>
                 <DeleteLinkButton linkId={link.id} />
               </DropDown> */}
+            </Link>
               <DropdownMenu>
                 <DropdownMenuTrigger>...</DropdownMenuTrigger>
 
@@ -74,7 +96,7 @@ export default async function Links() {
                   <DropdownMenuItem><EditLinkButton linkId={link.id} linkTitle={link.title} linkUrl={link.url}/></DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-            </Link>
+            </>
           );
         })}
       </div>

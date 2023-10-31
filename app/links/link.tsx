@@ -1,4 +1,5 @@
-export default async function Link({
+'use client'
+export default function Link({
   title,
   url,
   children,
