@@ -10,7 +10,7 @@ import DeleteLinkButton from "./delete-link-button";
 import EditLinkButton from "./edit-link-button";
 import DropDown from "@/components/DropDown";
 
-import {DropdownMenu, DropdownMenuItem} from "@/components/DropDown2"
+import {DropdownMenu, DropdownMenuItem} from "@/components/ui/dropdown-menu"
 import { DropdownMenuContent, DropdownMenuTrigger } from "@radix-ui/react-dropdown-menu";
 
 export default function Links() {
