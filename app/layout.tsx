@@ -28,11 +28,11 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NavBar/>
           <main className={cn(
             "min-h-screen bg-background font-sans antialiased",
             fontSans.variable
-          )}>
+            )}>
+            <NavBar/>
             {children}
           </main>
         </ThemeProvider>
