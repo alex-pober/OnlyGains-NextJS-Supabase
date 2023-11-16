@@ -1,13 +1,25 @@
 "use client";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+
 import { useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
 import Link from "next/link";
-import LogoutButton from "../components/LogoutButton";
+import LogoutButton from "./LogoutButton";
 import { usePathname } from "next/navigation";
-import { cn } from "@/lib/utils"
+import { cn } from "@/lib/utils";
 
-export default function NavBar({className, ...props}: React.HTMLAttributes<HTMLElement>) {
+export default function NavBar({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLElement>) {
   const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const supabase = createClientComponentClient();
   const router = usePathname();
@@ -160,30 +172,42 @@ export default function NavBar({className, ...props}: React.HTMLAttributes<HTMLE
       <nav
         className={cn("flex items-center space-x-4 lg:space-x-6", className)}
         {...props}
-      >
+        >
+
+        <DropdownMenu>
+          <DropdownMenuTrigger>Open</DropdownMenuTrigger>
+          <DropdownMenuContent>
+            <DropdownMenuLabel>My Account</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuItem>Profile</DropdownMenuItem>
+            <DropdownMenuItem>Billing</DropdownMenuItem>
+            <DropdownMenuItem>Team</DropdownMenuItem>
+            <DropdownMenuItem>Subscription</DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <Link
-          href="/examples/dashboard"
+          href="/dashboard"
           className="text-sm font-medium transition-colors hover:text-primary"
         >
-          Overview
+          Dashboard
         </Link>
         <Link
-          href="/examples/dashboard"
+          href="/workouts"
           className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
         >
-          Customers
+          Workouts
         </Link>
         <Link
-          href="/examples/dashboard"
+          href="/links"
           className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
         >
-          Products
+          Links
         </Link>
         <Link
-          href="/examples/dashboard"
+          href="/account"
           className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
         >
-          Settings
+          Account
         </Link>
       </nav>
     </main>

@@ -10,6 +10,10 @@ plugins: [require("tailwindcss-animate")],
 darkMode: ["class"],
 content: ["app/**/*.{ts,tsx}", "components/**/*.{ts,tsx}"],
 theme: {
+  extend: {
+    fontFamily: {
+      sans: ["var(--font-sans)", ...fontFamily.sans],
+    },
   container: {
     center: true,
     padding: "2rem",
@@ -17,10 +21,6 @@ theme: {
       "2xl": "1400px",
     },
   },
-  extend: {
-    fontFamily: {
-      sans: ["var(--font-sans)", ...fontFamily.sans],
-    },
     colors: {
       border: "hsl(var(--border))",
       input: "hsl(var(--input))",
