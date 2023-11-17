@@ -7,7 +7,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import { Button } from "@/components/ui/button"
+import { Menu , LayoutGrid, Dumbbell, Link2, User2 } from 'lucide-react';
 import { useEffect, useState } from "react";
 import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
 import { cookies } from "next/headers";
@@ -20,7 +21,6 @@ export default function NavBar({
   className,
   ...props
 }: React.HTMLAttributes<HTMLElement>) {
-  const [drawerOpen, setDrawerOpen] = useState<boolean>(false);
   const supabase = createClientComponentClient();
   const router = usePathname();
 
@@ -42,130 +42,7 @@ export default function NavBar({
   }, []);
 
   return (
-    // <div className="drawer drawer-end">
-    //   <input
-    //     id="my-drawer-3"
-    //     type="checkbox"
-    //     className="drawer-toggle"
-    //     checked={drawerOpen}
-    //   />
-    //   <div className="drawer-content flex flex-col">
-    //     {/* Navbar */}
-    //     <div className="navbar bg-base-100">
-    //       {/* Logo */}
-    //       <div className="flex-1">
-    //         <a className="btn btn-ghost normal-case text-xl">OnlyGains</a>
-    //       </div>
-    //       {/* Mobile drawer icon */}
-    //       <div className="flex-none md:hidden">
-    //         <label
-    //           htmlFor="my-drawer-3"
-    //           className="btn btn-square btn-ghost"
-    //           onClick={() => setDrawerOpen((prev) => !prev)}
-    //         >
-    //           <svg
-    //             xmlns="http://www.w3.org/2000/svg"
-    //             fill="none"
-    //             viewBox="0 0 24 24"
-    //             className="inline-block w-6 h-6 stroke-current"
-    //           >
-    //             <path
-    //               strokeLinecap="round"
-    //               strokeLinejoin="round"
-    //               strokeWidth="2"
-    //               d="M4 6h16M4 12h16M4 18h16"
-    //             ></path>
-    //           </svg>
-    //         </label>
-    //       </div>
-    //       {/* Navbar menu content here LARGE */}
-    //       <div className="flex-none hidden md:block">
-    //         <ul className="menu menu-horizontal">
-    //           <li>
-    //             <Link
-    //               href="/dashboard"
-    //               className="btn-ghost normal-case text-base"
-    //             >
-    //               Dashboard
-    //             </Link>
-    //           </li>
-    //           <li>
-    //             <Link
-    //               href="/workouts"
-    //               className="btn-ghost normal-case text-base"
-    //             >
-    //               Workouts
-    //             </Link>
-    //           </li>
-    //           <li>
-    //             <Link href="/links" className="btn-ghost normal-case text-base">
-    //               Links
-    //             </Link>
-    //           </li>
-    //           <li>
-    //             <Link
-    //               href="/account"
-    //               className="btn-ghost normal-case text-base"
-    //             >
-    //               Account
-    //             </Link>
-    //           </li>
-    //         </ul>
-    //       </div>
-    //     </div>
-    //   </div>
-    //   {/* Sidedrawer content here */}
-    //   <div className="drawer-side z-50">
-    //     <label
-    //       htmlFor="my-drawer-3"
-    //       className="drawer-overlay"
-    //       onClick={() => setDrawerOpen((prev) => !prev)}
-    //     ></label>
-    //     <ul className="menu p-4 sm:w-80 h-full bg-base-200 pt-16">
-    //       <li>
-    //         <Link
-    //           href="/dashboard"
-    //           className="btn-ghost normal-case text-lg"
-    //           onClick={() => setDrawerOpen((prev) => !prev)}
-    //         >
-    //           Dashboard
-    //         </Link>
-    //       </li>
-    //       <div className="divider m-0"></div>
-    //       <li>
-    //         <Link
-    //           href="/workouts"
-    //           className="btn-ghost normal-case text-lg"
-    //           onClick={() => setDrawerOpen((prev) => !prev)}
-    //         >
-    //           Workouts
-    //         </Link>
-    //       </li>
-    //       <div className="divider m-0"></div>
-    //       <li>
-    //         <Link
-    //           href="/links"
-    //           className="btn-ghost normal-case text-lg"
-    //           onClick={() => setDrawerOpen((prev) => !prev)}
-    //         >
-    //           Links
-    //         </Link>
-    //       </li>
-    //       <div className="divider m-0"></div>
-    //       <li>
-    //         <Link
-    //           href="/account"
-    //           className="btn-ghost normal-case text-lg"
-    //           onClick={() => setDrawerOpen((prev) => !prev)}
-    //         >
-    //           Account
-    //         </Link>
-    //       </li>
-    //       <div className="divider m-0"></div>
-    //     </ul>
-    //   </div>
-    // </div>
-    <main className="flex">
+    <main className="flex md:m-auto mx-4  h-12 justify-center items-center md:max-w-3xl">
       <div className="flex-1">
         <a className="btn btn-ghost normal-case text-xl">OnlyGains</a>
       </div>
@@ -173,42 +50,61 @@ export default function NavBar({
         className={cn("flex items-center space-x-4 lg:space-x-6", className)}
         {...props}
         >
+          <div className="md:hidden">
+            <DropdownMenu>
+              <DropdownMenuTrigger>
+                <Button variant="outline" size="icon">
+                  <Menu   />
+                </Button>
 
-        <DropdownMenu>
-          <DropdownMenuTrigger>Open</DropdownMenuTrigger>
-          <DropdownMenuContent>
-            <DropdownMenuLabel>My Account</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuItem>Profile</DropdownMenuItem>
-            <DropdownMenuItem>Billing</DropdownMenuItem>
-            <DropdownMenuItem>Team</DropdownMenuItem>
-            <DropdownMenuItem>Subscription</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-        <Link
-          href="/dashboard"
-          className="text-sm font-medium transition-colors hover:text-primary"
-        >
-          Dashboard
-        </Link>
-        <Link
-          href="/workouts"
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          Workouts
-        </Link>
-        <Link
-          href="/links"
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          Links
-        </Link>
-        <Link
-          href="/account"
-          className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
-        >
-          Account
-        </Link>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent>
+                <DropdownMenuItem>
+                  <LayoutGrid className="mr-2 h-4 w-4" />
+                  <span>Dashboard</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Dumbbell className="mr-2 h-4 w-4" />
+                  <span>Workouts</span>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link2 className="mr-2 h-4 w-4" />
+                  <span>Links</span>
+                </DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>
+                  <User2 className="mr-2 h-4 w-4" />
+                  <span>Account</span></DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+
+        <div className="flex gap-5 md:flex hidden">
+          <Link
+            href="/dashboard"
+            className="text-sm font-medium transition-colors hover:text-primary"
+          >
+            Dashboard
+          </Link>
+          <Link
+            href="/workouts"
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          >
+            Workouts
+          </Link>
+          <Link
+            href="/links"
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          >
+            Links
+          </Link>
+          <Link
+            href="/account"
+            className="text-sm font-medium text-muted-foreground transition-colors hover:text-primary"
+          >
+            Account
+          </Link>
+        </div>
       </nav>
     </main>
   );
