@@ -3,6 +3,9 @@ import { useState } from "react";
 import WorkoutDay from "./workout-day";
 import NoWorkouts from "./no-workouts";
 import CreateWorkoutModal from "./create-workout-modal";
+
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+
 type Workout = {
   auth_id: string | null;
   created_at: string;
@@ -19,6 +22,14 @@ export default function Workouts({ workoutsData, workoutCount, session }: { work
 
   return (
     <>
+      <Tabs defaultValue="account" className="w-[400px]">
+        <TabsList>
+          <TabsTrigger value="account">Account</TabsTrigger>
+          <TabsTrigger value="password">Password</TabsTrigger>
+        </TabsList>
+        <TabsContent value="account">Make changes to your account here.</TabsContent>
+        <TabsContent value="password">Change your password here.</TabsContent>
+      </Tabs>
       <div className="tabs tabs-boxed mb-4">
         {workoutsData?.map((item: Workout) => {
           return (

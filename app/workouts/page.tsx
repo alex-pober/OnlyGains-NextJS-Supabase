@@ -27,11 +27,12 @@ export default async function WorkoutsDashboard() {
     }
   }
 
-  return (<>
+  return (
+  <main className="max-w-4xl m-auto px-4">
     <h2 className="text-2xl md:text-3xl lg:text-4xl font-extrabold w-5/6 mt-4 mb-4">
       Workouts
     </h2>
     <Workouts workoutsData={workout} workoutCount={workout?.length} session={session}/>
     {/* <CreateWorkoutModal workoutCount={workout?.length} session={session}/> */}
-  </>)
+  </main>)
 }

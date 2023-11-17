@@ -31,15 +31,15 @@ export default function NavBar({
   }
 
   //pretty sure this isnt needed.
-  useEffect(() => {
-    const getUser = async () => {
-      const {
-        data: { user },
-      } = await supabase.auth.getUser();
-    };
+  // useEffect(() => {
+  //   const getUser = async () => {
+  //     const {
+  //       data: { user },
+  //     } = await supabase.auth.getUser();
+  //   };
 
-    getUser();
-  }, []);
+  //   getUser();
+  // }, []);
 
   return (
     <main className="flex md:m-auto mx-4  h-12 justify-center items-center md:max-w-3xl">
