@@ -31,15 +31,15 @@ export default function NavBar({
   }
 
   //pretty sure this isnt needed.
-  // useEffect(() => {
-  //   const getUser = async () => {
-  //     const {
-  //       data: { user },
-  //     } = await supabase.auth.getUser();
-  //   };
+  useEffect(() => {
+    const getUser = async () => {
+      const {
+        data: { user },
+      } = await supabase.auth.getUser();
+    };
 
-  //   getUser();
-  // }, []);
+    getUser();
+  }, []);
 
   return (
     <main className="flex md:m-auto mx-4  h-12 justify-center items-center md:max-w-3xl">
@@ -52,11 +52,8 @@ export default function NavBar({
         >
           <div className="md:hidden">
             <DropdownMenu>
-              <DropdownMenuTrigger>
-                <Button variant="outline" size="icon">
-                  <Menu   />
-                </Button>
-
+              <DropdownMenuTrigger className="p-2 border border-input bg-background hover:bg-accent hover:text-accent-foreground inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50">
+                  <Menu />
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuItem>
