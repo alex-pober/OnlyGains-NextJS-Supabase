@@ -16,7 +16,7 @@ type Exercise = {
 export default function WorkoutDay({ workoutId }: any) {
   const [workoutDays, setWorkoutDays] = useState<any[]>([]);
   const supabase = createClientComponentClient();
-
+  console.log(workoutDays)
   useEffect(() => {
     const getWorkoutDays = async () => {
       const { data }: { data: any } = await supabase
